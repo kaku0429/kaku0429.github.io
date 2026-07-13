@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Memories of Pandora.">
+    <title>Memories of Pandora</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="memories-page">
+
+        <video class="memories-video" autoplay muted loop playsinline id="memoriesVideo">
+            <source src="videos/memories.mp4" type="video/mp4">
+        </video>
+
+        <button class="sound-button" id="soundButton">SOUND OFF</button>
+
+        <a href="index.html" class="memories-back">BACK TO TOP</a>
+
+    </main>
+
+    <script>
+        const video = document.getElementById("memoriesVideo");
+        const soundButton = document.getElementById("soundButton");
+
+        window.addEventListener("load", function () {
+            video.play();
+        });
+
+        soundButton.addEventListener("click", function () {
+            video.muted = !video.muted;
+
+            soundButton.textContent = video.muted
+                ? "SOUND OFF"
+                : "SOUND ON";
+        });
+    </script>
+
+</body>
+
+</html>
