@@ -11,6 +11,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="css/style.css">
+ <link rel="icon" href="images/avatar-seeklogo.svg" type="image/svg+xml">
 
  <meta name="description" content="A fan website introducing Pandora, Eywa, the Na'vi, and the creatures from Avatar.">
 
@@ -19,12 +20,13 @@
 
 <body>
     <header>
-        <button class="menu">&#9776;</button>
+        <button class="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">&#9776;</button>
      <h1>Avatar</h1>
-     <nav>
+     <nav class="site-nav" id="siteNav" aria-label="Main navigation">
     <ul>
     <li><a href="#hero">Start</a></li>
     <li><a href="#Pandora">Pandora</a></li>
+    <li><a href="#GUIDE">Guide</a></li>
     <li><a href="#HALLELUJAH">Hallelujah Mountains</a></li>
     <li><a href="#EYWA">EYWA</a></li>
     <li><a href="#NAVI">NA'VI</a></li>
@@ -51,6 +53,29 @@ diverse creatures, and a natural network connected through Eywa.
 <a href="pandora.html" class="page-button">EXPLORE PANDORA</a>
 
     </section>
+
+<section class="GUIDE" id="GUIDE">
+    <div class="guide-copy">
+        <h3>01</h3>
+        <h2>PANDORA GUIDE</h2>
+        <h3>Choose a Path</h3>
+        <p>Select a topic to discover how Pandora's land, people, and living network connect.</p>
+    </div>
+
+    <div class="guide-panel">
+        <div class="guide-tabs" role="tablist" aria-label="Pandora guide topics">
+            <button class="guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide="forest">Forest</button>
+            <button class="guide-tab" type="button" role="tab" aria-selected="false" data-guide="bond">Bond</button>
+            <button class="guide-tab" type="button" role="tab" aria-selected="false" data-guide="flight">Flight</button>
+        </div>
+
+        <article class="guide-card" id="guideCard" aria-live="polite">
+            <p class="guide-kicker">FOREST NETWORK</p>
+            <h3>Glow Paths</h3>
+            <p>Bioluminescent plants react to movement and guide the Na'vi through the night forest.</p>
+        </article>
+    </div>
+</section>
 
 <section class="HALLELUJAH" id="HALLELUJAH">
     <div class="moji1">
@@ -127,5 +152,8 @@ the world of Pandora.</p>
     <p>© 2026 Avatar Fan Website Created for Educational Purposes</p>
   </footer>
 
+  <button class="top-button" type="button" aria-label="Back to top">↑</button>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
