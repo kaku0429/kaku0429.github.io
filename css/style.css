@@ -519,6 +519,21 @@ transition:.6s;
 
 }
 
+.memories-page::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:34vh;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(
+        rgba(0,0,0,0),
+        rgba(0,0,0,.82)
+    );
+}
+
 .memories-video{
 
     position:absolute;
@@ -534,6 +549,8 @@ transition:.6s;
     object-fit:cover;
 
     object-position:center;
+
+    z-index:0;
 
 }
 

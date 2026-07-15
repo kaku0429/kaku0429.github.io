@@ -65,6 +65,8 @@ if (guideTabs.length && guideCard) {
                 item.setAttribute("aria-selected", String(isSelected));
             });
 
+            guideCard.setAttribute("aria-labelledby", tab.id);
+
             guideCard.innerHTML = `
                 <p class="guide-kicker">${content.kicker}</p>
                 <h3>${content.title}</h3>

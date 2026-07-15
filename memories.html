@@ -7,7 +7,10 @@
     <meta name="description" content="Memories of Pandora.">
     <title>Memories of Pandora</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Poppins:wght@300;400;500&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260715-2">
     <link rel="icon" href="images/avatar-seeklogo.svg" type="image/svg+xml">
 </head>
 
@@ -15,13 +18,13 @@
 
     <main class="memories-page">
 
-        <video class="memories-video" autoplay muted loop playsinline id="memoriesVideo">
+        <video class="memories-video" autoplay muted loop playsinline preload="metadata" poster="images/gallery.jpg" id="memoriesVideo">
             <source src="videos/memories.mp4" type="video/mp4">
         </video>
 
         <button class="sound-button" id="soundButton">SOUND OFF</button>
 
-        <a href="index.html" class="memories-back">BACK TO TOP</a>
+        <a href="index.html" class="memories-back">BACK HOME</a>
 
     </main>
 
@@ -30,10 +33,16 @@
         const soundButton = document.getElementById("soundButton");
 
         window.addEventListener("load", function () {
-            video.play();
+            video.play().catch(function () {
+                soundButton.textContent = "TAP TO PLAY";
+            });
         });
 
         soundButton.addEventListener("click", function () {
+            if (video.paused) {
+                video.play();
+            }
+
             video.muted = !video.muted;
 
             soundButton.textContent = video.muted

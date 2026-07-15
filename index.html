@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Poppins:wght@300;400;500&amp;display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="css/style.css?v=20260715-2">
  <link rel="icon" href="images/avatar-seeklogo.svg" type="image/svg+xml">
 
  <meta name="description" content="A fan website introducing Pandora, Eywa, the Na'vi, and the creatures from Avatar.">
@@ -64,12 +64,12 @@ diverse creatures, and a natural network connected through Eywa.
 
     <div class="guide-panel">
         <div class="guide-tabs" role="tablist" aria-label="Pandora guide topics">
-            <button class="guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide="forest">Forest</button>
-            <button class="guide-tab" type="button" role="tab" aria-selected="false" data-guide="bond">Bond</button>
-            <button class="guide-tab" type="button" role="tab" aria-selected="false" data-guide="flight">Flight</button>
+            <button class="guide-tab is-active" id="guideTabForest" type="button" role="tab" aria-selected="true" aria-controls="guideCard" data-guide="forest">Forest</button>
+            <button class="guide-tab" id="guideTabBond" type="button" role="tab" aria-selected="false" aria-controls="guideCard" data-guide="bond">Bond</button>
+            <button class="guide-tab" id="guideTabFlight" type="button" role="tab" aria-selected="false" aria-controls="guideCard" data-guide="flight">Flight</button>
         </div>
 
-        <article class="guide-card" id="guideCard" aria-live="polite">
+        <article class="guide-card" id="guideCard" role="tabpanel" tabindex="0" aria-live="polite" aria-labelledby="guideTabForest">
             <p class="guide-kicker">FOREST NETWORK</p>
             <h3>Glow Paths</h3>
             <p>Bioluminescent plants react to movement and guide the Na'vi through the night forest.</p>
@@ -108,17 +108,17 @@ It represents harmony, memory, and the balance of all life.</p>
     <table class="kapian">
     <tr>
         <td>
-            <img src="images/nanzhujue.jpg" alt="男主角">
+            <img src="images/nanzhujue.jpg" alt="Jake Sully portrait">
             <h3>Jake Sully</h3>
             <p>Toruk Makto · Chosen by Eywa</p>
         </td>
         <td>
-            <img src="images/nvzhujue.jpg" alt="女主角">
+            <img src="images/nvzhujue.jpg" alt="Neytiri portrait">
             <h3>Neytiri</h3>
             <p>Daughter of the Omatikaya · Voice of the Forest</p>
         </td>
         <td>
-            <img src="images/hezhao.jpg" alt="合照">
+            <img src="images/hezhao.jpg" alt="Na'vi characters together">
             <h3>NA'VI</h3>
             <p>REBORN AS NA’VI</p>
         </td>
@@ -154,6 +154,6 @@ the world of Pandora.</p>
 
   <button class="top-button" type="button" aria-label="Back to top">↑</button>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260715-2"></script>
 </body>
 </html>
