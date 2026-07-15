@@ -1035,6 +1035,10 @@ header h1{
         border-bottom:1px solid rgba(255,255,255,.08);
     }
 
+    body > main:not(.pandora-page):not(.memories-page){
+        margin-top:72px;
+    }
+
     .hero,
     .Pandora,
     .HALLELUJAH,
@@ -1043,8 +1047,22 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        min-height:auto;
-        padding:104px 24px 72px;
+        min-height:calc(100vh - 72px);
+        min-height:calc(100svh - 72px);
+        padding:48px 24px 56px;
+    }
+
+    @supports (height:100dvh){
+        .hero,
+        .Pandora,
+        .HALLELUJAH,
+        .EYWA,
+        .NAVI,
+        .CREATURES,
+        .see,
+        .GUIDE{
+            min-height:calc(100dvh - 72px);
+        }
     }
 
     h2{
@@ -1109,13 +1127,22 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        padding:96px 18px 64px;
+        min-height:calc(100vh - 72px);
+        min-height:calc(100svh - 72px);
+        padding:40px 18px 52px;
     }
 
-    .hero,
-    .Pandora,
-    .see{
-        min-height:100svh;
+    @supports (height:100dvh){
+        .hero,
+        .Pandora,
+        .HALLELUJAH,
+        .EYWA,
+        .NAVI,
+        .CREATURES,
+        .see,
+        .GUIDE{
+            min-height:calc(100dvh - 72px);
+        }
     }
 
     .moji1,
