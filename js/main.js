@@ -5,6 +5,7 @@ const navLinks = document.querySelectorAll(".site-nav a");
 const topButton = document.querySelector(".top-button");
 const guideTabs = document.querySelectorAll(".guide-tab");
 const guideCard = document.querySelector("#guideCard");
+let menuScrollTimer;
 
 const guideContent = {
     forest: {
@@ -31,15 +32,69 @@ function setMenuOpen(isOpen) {
     menuButton.textContent = isOpen ? "×" : "☰";
 }
 
+function unlockMenuScroll() {
+    document.documentElement.classList.remove("is-menu-jumping");
+
+    if (menuScrollTimer) {
+        window.clearTimeout(menuScrollTimer);
+        menuScrollTimer = null;
+    }
+}
+
+function goToSection(href) {
+    if (!href || href.charAt(0) !== "#") {
+        return false;
+    }
+
+    const target = document.querySelector(href);
+
+    if (!target) {
+        return false;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const headerOffset = window.innerWidth <= 900 ? 72 : 0;
+    const targetTop = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
+
+    document.documentElement.classList.add("is-menu-jumping");
+    setMenuOpen(false);
+
+    window.scrollTo({
+        top: targetTop,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+    });
+
+    if (window.location.hash !== href) {
+        window.history.pushState(null, "", href);
+    }
+
+    if ("onscrollend" in window) {
+        window.addEventListener("scrollend", unlockMenuScroll, { once: true });
+    }
+
+    menuScrollTimer = window.setTimeout(unlockMenuScroll, prefersReducedMotion ? 120 : 900);
+
+    return true;
+}
+
 if (menuButton && nav) {
     menuButton.addEventListener("click", function () {
         setMenuOpen(!header.classList.contains("is-menu-open"));
     });
 
-    navLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-            setMenuOpen(false);
-        });
+    nav.addEventListener("click", function (event) {
+        const link = event.target.closest("a");
+
+        if (!link || !nav.contains(link)) {
+            return;
+        }
+
+        if (goToSection(link.getAttribute("href"))) {
+            event.preventDefault();
+            return;
+        }
+
+        setMenuOpen(false);
     });
 
     document.addEventListener("keydown", function (event) {
