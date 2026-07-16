@@ -588,6 +588,20 @@ transition:.6s;
     background:#000;
 }
 
+.memories-page,
+.pandora-page{
+    height:100vh;
+    min-height:100vh;
+}
+
+@supports (height:100dvh){
+    .memories-page,
+    .pandora-page{
+        height:100dvh;
+        min-height:100dvh;
+    }
+}
+
 .pandora-video{
     position:absolute;
     top:0;
@@ -743,9 +757,21 @@ header h1{
 .NAVI,
 .CREATURES,
 .see{
-    min-height:100svh;
+    min-height:100vh;
     height:auto;
     padding:120px 8vw 80px;
+}
+
+@supports (height:100dvh){
+    .hero,
+    .Pandora,
+    .HALLELUJAH,
+    .EYWA,
+    .NAVI,
+    .CREATURES,
+    .see{
+        min-height:100dvh;
+    }
 }
 
 .hero,
@@ -791,7 +817,7 @@ header h1{
 }
 
 .GUIDE{
-    min-height:100svh;
+    min-height:100vh;
     height:auto;
     position:relative;
     overflow:hidden;
@@ -802,6 +828,12 @@ header h1{
     padding:120px 8vw 80px;
     color:#ffffff;
     background:#07111d url(../images/pandora2.jpg) center/cover no-repeat;
+}
+
+@supports (height:100dvh){
+    .GUIDE{
+        min-height:100dvh;
+    }
 }
 
 .GUIDE::before{
@@ -971,6 +1003,11 @@ header h1{
 }
 
 @media screen and (max-width:900px){
+    html{
+        scroll-snap-type:y mandatory;
+        scroll-padding-top:72px;
+    }
+
     header{
         height:72px;
         padding:0 20px;
@@ -1015,10 +1052,16 @@ header h1{
     }
 
     header.is-menu-open .site-nav{
-        max-height:calc(100svh - 72px);
+        max-height:calc(100vh - 72px);
         opacity:1;
         pointer-events:auto;
         overflow-y:auto;
+    }
+
+    @supports (height:100dvh){
+        header.is-menu-open .site-nav{
+            max-height:calc(100dvh - 72px);
+        }
     }
 
     .site-nav ul{
@@ -1047,9 +1090,15 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        min-height:calc(100vh - 72px);
-        min-height:calc(100svh - 72px);
-        padding:48px 24px 56px;
+        height:100vh;
+        min-height:100vh;
+        scroll-snap-align:start;
+        scroll-snap-stop:always;
+        padding:42px 24px 74px;
+    }
+
+    footer{
+        scroll-snap-align:end;
     }
 
     @supports (height:100dvh){
@@ -1061,7 +1110,8 @@ header h1{
         .CREATURES,
         .see,
         .GUIDE{
-            min-height:calc(100dvh - 72px);
+            height:100dvh;
+            min-height:100dvh;
         }
     }
 
@@ -1080,15 +1130,47 @@ header h1{
 
     .GUIDE{
         grid-template-columns:1fr;
-        gap:32px;
+        gap:24px;
+    }
+
+    .guide-panel{
+        padding:18px;
     }
 
     .kapian{
         grid-template-columns:1fr;
+        gap:12px;
+        margin-top:24px;
+    }
+
+    .kapian td{
+        display:grid;
+        grid-template-columns:104px minmax(0, 1fr);
+        align-items:center;
+        min-height:116px;
     }
 
     .kapian img{
-        height:220px;
+        width:104px;
+        height:116px;
+        border-radius:8px 0 0 8px;
+        grid-column:1;
+        grid-row:1 / span 2;
+    }
+
+    .kapian h3{
+        grid-column:2;
+        grid-row:1;
+        margin:0 16px 6px;
+        font-size:18px;
+    }
+
+    .kapian p{
+        grid-column:2;
+        grid-row:2;
+        margin:0 16px;
+        font-size:13px;
+        line-height:1.45;
     }
 
     .pandora-text{
@@ -1108,11 +1190,14 @@ header h1{
     }
 
     h2{
-        font-size:34px;
+        font-size:clamp(30px, 9vw, 38px);
+        line-height:1.08;
+        text-wrap:balance;
     }
 
     p{
         font-size:15px;
+        line-height:1.62;
     }
 
     p br{
@@ -1127,9 +1212,14 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        min-height:calc(100vh - 72px);
-        min-height:calc(100svh - 72px);
-        padding:40px 18px 52px;
+        height:100vh;
+        min-height:100vh;
+        padding:30px 18px 82px;
+    }
+
+    .hero h2{
+        max-width:340px;
+        text-wrap:wrap;
     }
 
     @supports (height:100dvh){
@@ -1141,7 +1231,8 @@ header h1{
         .CREATURES,
         .see,
         .GUIDE{
-            min-height:calc(100dvh - 72px);
+            height:100dvh;
+            min-height:100dvh;
         }
     }
 
@@ -1158,28 +1249,75 @@ header h1{
     .muji3 h3:first-child,
     .muji4 h3:first-child,
     .guide-copy h3:first-child{
-        font-size:52px;
+        font-size:44px;
+        margin-bottom:6px;
+    }
+
+    .moji1 h3,
+    .moji2 h3,
+    .muji3 h3,
+    .muji4 h3,
+    .guide-copy h3{
+        font-size:16px;
+        margin-bottom:12px;
+    }
+
+    .moji1 p,
+    .moji2 p,
+    .muji3 p,
+    .muji4 p,
+    .guide-copy p{
+        margin:16px 0 0;
     }
 
     .guide-panel{
-        padding:16px;
+        padding:14px;
     }
 
     .guide-tabs{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(3, 1fr);
+        gap:6px;
+    }
+
+    .guide-tab{
+        min-height:38px;
+        font-size:13px;
     }
 
     .guide-card{
         min-height:0;
-        padding-top:22px;
+        padding:16px 0 0;
     }
 
     .guide-card h3{
-        font-size:24px;
+        font-size:22px;
+        margin-bottom:8px;
     }
 
     .kapian img{
-        height:190px;
+        width:88px;
+        height:94px;
+    }
+
+    .kapian{
+        gap:9px;
+        margin-top:18px;
+    }
+
+    .kapian td{
+        grid-template-columns:88px minmax(0, 1fr);
+        min-height:94px;
+    }
+
+    .kapian h3{
+        margin:0 12px 4px;
+        font-size:16px;
+    }
+
+    .kapian p{
+        margin:0 12px;
+        font-size:12px;
+        line-height:1.35;
     }
 
     footer{
@@ -1197,7 +1335,7 @@ header h1{
 
     .top-button{
         right:16px;
-        bottom:16px;
+        bottom:calc(64px + env(safe-area-inset-bottom));
         width:44px;
         height:44px;
     }
@@ -1205,9 +1343,17 @@ header h1{
     .pandora-text{
         left:20px;
         right:20px;
-        top:92px;
-        bottom:28px;
+        top:50%;
+        bottom:auto;
+        max-height:calc(100vh - 68px);
         overflow:auto;
+        transform:translateY(-50%);
+    }
+
+    @supports (height:100dvh){
+        .pandora-text{
+            max-height:calc(100dvh - 68px);
+        }
     }
 
     .pandora-text h2{
@@ -1221,14 +1367,14 @@ header h1{
     .memories-back{
         left:20px;
         right:20px;
-        bottom:24px;
+        bottom:calc(24px + env(safe-area-inset-bottom));
         text-align:center;
     }
 
     .sound-button{
         left:20px;
         right:20px;
-        bottom:84px;
+        bottom:calc(84px + env(safe-area-inset-bottom));
         width:auto;
     }
 }
