@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Poppins:wght@300;400;500&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260716-5">
+    <link rel="stylesheet" href="css/style.css?v=20260716-6">
     <link rel="icon" href="images/avatar-seeklogo.svg" type="image/svg+xml">
 </head>
 
@@ -18,9 +18,12 @@
 
     <main class="memories-page">
 
-        <video class="memories-video" autoplay muted loop playsinline preload="metadata" poster="images/gallery.jpg" id="memoriesVideo">
+        <video class="memories-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="images/gallery.jpg" id="memoriesVideo">
             <source src="videos/memories.mp4" type="video/mp4">
         </video>
+
+        <button class="video-play-button" id="videoPlayButton" type="button">PLAY VIDEO</button>
+        <p class="video-message" id="videoMessage" hidden>Tap play to start the memory video.</p>
 
         <button class="sound-button" id="soundButton">SOUND OFF</button>
 
@@ -31,16 +34,51 @@
     <script>
         const video = document.getElementById("memoriesVideo");
         const soundButton = document.getElementById("soundButton");
+        const playButton = document.getElementById("videoPlayButton");
+        const videoMessage = document.getElementById("videoMessage");
+
+        function setPlayFallback(message) {
+            playButton.classList.remove("is-hidden");
+            videoMessage.hidden = false;
+            videoMessage.textContent = message;
+            video.controls = true;
+        }
+
+        function setVideoPlaying() {
+            playButton.classList.add("is-hidden");
+            videoMessage.hidden = true;
+            video.controls = false;
+            soundButton.textContent = video.muted ? "SOUND OFF" : "SOUND ON";
+        }
+
+        function playMemoryVideo() {
+            video.muted = true;
+
+            return video.play()
+                .then(setVideoPlaying)
+                .catch(function () {
+                    setPlayFallback("Tap play to start the memory video.");
+                });
+        }
 
         window.addEventListener("load", function () {
-            video.play().catch(function () {
-                soundButton.textContent = "TAP TO PLAY";
-            });
+            playMemoryVideo();
+        });
+
+        video.addEventListener("playing", setVideoPlaying);
+
+        video.addEventListener("error", function () {
+            setPlayFallback("The video needs a tap to load on this phone.");
+        });
+
+        playButton.addEventListener("click", function () {
+            playMemoryVideo();
         });
 
         soundButton.addEventListener("click", function () {
             if (video.paused) {
-                video.play();
+                playMemoryVideo();
+                return;
             }
 
             video.muted = !video.muted;

@@ -8,6 +8,16 @@ const guideCard = document.querySelector("#guideCard");
 let menuScrollTimer;
 let lockedMenuScrollY = 0;
 
+function setStablePageHeight() {
+    document.documentElement.style.setProperty("--stable-page-height", `${window.innerHeight}px`);
+}
+
+setStablePageHeight();
+
+window.addEventListener("orientationchange", function () {
+    window.setTimeout(setStablePageHeight, 300);
+});
+
 const guideContent = {
     forest: {
         kicker: "FOREST NETWORK",
@@ -210,10 +220,12 @@ if (topButton) {
     window.addEventListener("scroll", updateTopButton, { passive: true });
 
     topButton.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        if (!goToSection("#hero")) {
+            window.scrollTo({
+                top: 0,
+                behavior: "auto"
+            });
+        }
     });
 }
 

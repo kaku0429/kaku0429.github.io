@@ -417,8 +417,7 @@ background-color: #000b16;
 }
 
 section{
-
-transition:.6s;
+    transition:none;
 }
 
 .kapian{
@@ -470,6 +469,43 @@ transition:.6s;
     font-family:"Poppins", sans-serif;
     letter-spacing:2px;
     cursor:pointer;
+}
+
+.video-play-button{
+    position:absolute;
+    left:50%;
+    top:50%;
+    z-index:3;
+    transform:translate(-50%, -50%);
+    min-width:168px;
+    padding:14px 26px;
+    color:#06111f;
+    background:#6ee8ff;
+    border:1px solid #6ee8ff;
+    border-radius:8px;
+    font-family:"Poppins", sans-serif;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    transition:opacity .2s ease, transform .2s ease;
+}
+
+.video-play-button.is-hidden{
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%, -46%);
+}
+
+.video-message{
+    position:absolute;
+    left:24px;
+    right:24px;
+    top:calc(50% + 46px);
+    z-index:3;
+    margin:0 auto;
+    text-align:center;
+    font-size:14px;
+    line-height:1.5;
 }
 
 .page-button,
@@ -1010,7 +1046,7 @@ header h1{
 
 @media screen and (max-width:900px){
     html{
-        scroll-snap-type:y mandatory;
+        scroll-snap-type:y proximity;
         scroll-padding-top:72px;
     }
 
@@ -1096,10 +1132,10 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        height:100vh;
-        min-height:100vh;
+        height:var(--stable-page-height, 100vh);
+        min-height:var(--stable-page-height, 100vh);
         scroll-snap-align:start;
-        scroll-snap-stop:always;
+        scroll-snap-stop:normal;
         padding:42px 24px 74px;
     }
 
@@ -1107,7 +1143,7 @@ header h1{
         scroll-snap-align:end;
     }
 
-    @supports (height:100dvh){
+    @supports (height:100svh){
         .hero,
         .Pandora,
         .HALLELUJAH,
@@ -1116,8 +1152,8 @@ header h1{
         .CREATURES,
         .see,
         .GUIDE{
-            height:100dvh;
-            min-height:100dvh;
+            height:var(--stable-page-height, 100svh);
+            min-height:var(--stable-page-height, 100svh);
         }
     }
 
@@ -1188,6 +1224,20 @@ header h1{
     .pandora-back{
         margin-top:34px;
     }
+
+    .memories-page,
+    .pandora-page{
+        height:var(--stable-page-height, 100vh);
+        min-height:var(--stable-page-height, 100vh);
+    }
+
+    @supports (height:100svh){
+        .memories-page,
+        .pandora-page{
+            height:100svh;
+            min-height:100svh;
+        }
+    }
 }
 
 @media screen and (max-width:560px){
@@ -1218,8 +1268,8 @@ header h1{
     .CREATURES,
     .see,
     .GUIDE{
-        height:100vh;
-        min-height:100vh;
+        height:var(--stable-page-height, 100vh);
+        min-height:var(--stable-page-height, 100vh);
         padding:30px 18px 82px;
     }
 
@@ -1228,7 +1278,7 @@ header h1{
         text-wrap:wrap;
     }
 
-    @supports (height:100dvh){
+    @supports (height:100svh){
         .hero,
         .Pandora,
         .HALLELUJAH,
@@ -1237,8 +1287,8 @@ header h1{
         .CREATURES,
         .see,
         .GUIDE{
-            height:100dvh;
-            min-height:100dvh;
+            height:var(--stable-page-height, 100svh);
+            min-height:var(--stable-page-height, 100svh);
         }
     }
 
@@ -1341,7 +1391,7 @@ header h1{
 
     .top-button{
         right:16px;
-        bottom:calc(64px + env(safe-area-inset-bottom));
+        bottom:calc(96px + env(safe-area-inset-bottom));
         width:44px;
         height:44px;
     }
@@ -1380,8 +1430,13 @@ header h1{
     .sound-button{
         left:20px;
         right:20px;
-        bottom:calc(84px + env(safe-area-inset-bottom));
+        bottom:calc(92px + env(safe-area-inset-bottom));
         width:auto;
+    }
+
+    .video-play-button{
+        min-width:160px;
+        max-width:calc(100vw - 48px);
     }
 }
 
