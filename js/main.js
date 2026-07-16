@@ -6,6 +6,7 @@ const topButton = document.querySelector(".top-button");
 const guideTabs = document.querySelectorAll(".guide-tab");
 const guideCard = document.querySelector("#guideCard");
 let menuScrollTimer;
+let lockedMenuScrollY = 0;
 
 const guideContent = {
     forest: {
@@ -25,24 +26,67 @@ const guideContent = {
     }
 };
 
+function lockPageScroll() {
+    lockedMenuScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedMenuScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+}
+
+function unlockPageScroll(restoreScroll) {
+    const scrollPosition = lockedMenuScrollY;
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    document.body.style.overflow = "";
+
+    if (restoreScroll) {
+        document.documentElement.style.scrollBehavior = "auto";
+        window.scrollTo(0, scrollPosition);
+
+        window.requestAnimationFrame(function () {
+            window.scrollTo(0, scrollPosition);
+            document.documentElement.style.scrollBehavior = previousScrollBehavior;
+        });
+    }
+}
+
+function getSectionTop(target) {
+    const headerOffset = window.innerWidth <= 900 ? 72 : 0;
+    return Math.max(0, target.offsetTop - headerOffset);
+}
+
 function setMenuOpen(isOpen, preserveScroll) {
+    const wasOpen = header.classList.contains("is-menu-open");
     const shouldPreserveScroll = preserveScroll !== false;
-    const scrollPosition = window.scrollY;
 
     header.classList.toggle("is-menu-open", isOpen);
     document.documentElement.classList.toggle("is-menu-open", isOpen);
+    document.body.classList.toggle("is-menu-open", isOpen);
     menuButton.setAttribute("aria-expanded", String(isOpen));
     menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
     menuButton.textContent = isOpen ? "×" : "☰";
 
-    if (shouldPreserveScroll) {
-        window.requestAnimationFrame(function () {
-            window.scrollTo(0, scrollPosition);
-        });
+    if (isOpen && !wasOpen) {
+        lockPageScroll();
+    } else if (!isOpen && wasOpen) {
+        if (shouldPreserveScroll) {
+            document.documentElement.classList.add("is-menu-jumping");
+        }
 
-        window.setTimeout(function () {
-            window.scrollTo(0, scrollPosition);
-        }, 90);
+        unlockPageScroll(shouldPreserveScroll);
+
+        if (shouldPreserveScroll) {
+            scheduleMenuScrollUnlock(450);
+        }
     }
 }
 
@@ -53,6 +97,14 @@ function unlockMenuScroll() {
         window.clearTimeout(menuScrollTimer);
         menuScrollTimer = null;
     }
+}
+
+function scheduleMenuScrollUnlock(timeout) {
+    if (menuScrollTimer) {
+        window.clearTimeout(menuScrollTimer);
+    }
+
+    menuScrollTimer = window.setTimeout(unlockMenuScroll, timeout);
 }
 
 function goToSection(href) {
@@ -67,8 +119,7 @@ function goToSection(href) {
     }
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const headerOffset = window.innerWidth <= 900 ? 72 : 0;
-    const targetTop = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
+    const targetTop = getSectionTop(target);
 
     document.documentElement.classList.add("is-menu-jumping");
     setMenuOpen(false, false);
@@ -86,7 +137,7 @@ function goToSection(href) {
         window.addEventListener("scrollend", unlockMenuScroll, { once: true });
     }
 
-    menuScrollTimer = window.setTimeout(unlockMenuScroll, prefersReducedMotion ? 120 : 900);
+    scheduleMenuScrollUnlock(prefersReducedMotion ? 120 : 900);
 
     return true;
 }

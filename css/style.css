@@ -665,7 +665,8 @@ html{
 }
 
 html.is-menu-jumping,
-html.is-menu-open{
+html.is-menu-open,
+body.is-menu-open{
     scroll-snap-type:none !important;
 }
 
