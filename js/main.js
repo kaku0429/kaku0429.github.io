@@ -25,11 +25,25 @@ const guideContent = {
     }
 };
 
-function setMenuOpen(isOpen) {
+function setMenuOpen(isOpen, preserveScroll) {
+    const shouldPreserveScroll = preserveScroll !== false;
+    const scrollPosition = window.scrollY;
+
     header.classList.toggle("is-menu-open", isOpen);
+    document.documentElement.classList.toggle("is-menu-open", isOpen);
     menuButton.setAttribute("aria-expanded", String(isOpen));
     menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
     menuButton.textContent = isOpen ? "×" : "☰";
+
+    if (shouldPreserveScroll) {
+        window.requestAnimationFrame(function () {
+            window.scrollTo(0, scrollPosition);
+        });
+
+        window.setTimeout(function () {
+            window.scrollTo(0, scrollPosition);
+        }, 90);
+    }
 }
 
 function unlockMenuScroll() {
@@ -57,7 +71,7 @@ function goToSection(href) {
     const targetTop = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
 
     document.documentElement.classList.add("is-menu-jumping");
-    setMenuOpen(false);
+    setMenuOpen(false, false);
 
     window.scrollTo({
         top: targetTop,

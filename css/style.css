@@ -664,7 +664,8 @@ html{
     scroll-padding-top:80px;
 }
 
-html.is-menu-jumping{
+html.is-menu-jumping,
+html.is-menu-open{
     scroll-snap-type:none !important;
 }
 
